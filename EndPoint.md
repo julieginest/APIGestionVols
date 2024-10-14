@@ -51,9 +51,9 @@
 |---|---|---|
 | GET `/GetAll` | / | Returns all "maintenance" |
 | GET `/GetById/[Id]` | / | Returns the maintenance according to his `Id` |
-| GET `/Filtered` | ?technicienID - int<br/>?planeRegistration - string<br/>?start - datetime<br/>?end - datetime| Returns a list of maintenace according to the filters |
-| POST `/Create` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"technicienID": int<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"planeRegistration": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"start": string <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"end": string<br/>} | Creates a maintenance (`Id` is generated automaticaly) |
-| POST `/Update/[Id]` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"technicienID": int<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"planeRegistration": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"start": string <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"end": string<br/>} | Updates a maintenance according to `Id` |
+| GET `/Filtered` | ?title - string<br/>?technicienID - int<br/>?planeRegistration - string<br/>?start - datetime<br/>?end - datetime| Returns a list of maintenace according to the filters |
+| POST `/Create` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"title": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"technicienID": int<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"planeRegistration": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"start": string <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"end": string<br/>} | Creates a maintenance (`Id` is generated automaticaly) |
+| POST `/Update/[Id]` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"title": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"technicienID": int<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"planeRegistration": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"start": string <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"end": string<br/>} | Updates a maintenance according to `Id` |
 | GET `/Delete/[Id]` | / | Deletes a maintenance according to `Id`|
 
 # Answers
