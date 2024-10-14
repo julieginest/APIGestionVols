@@ -40,8 +40,8 @@
 | GET `/GetAll` | / | Returns all "technicien" |
 | GET `/GetById/[Id]` | / | Returns the technicien according to his `Id` |
 | GET `/Search` | ?q - string | Returns a list of technicien according to the search therms |
-| POST `/Create` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"firstName": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"surName": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"unregisteredFlightTime": int <br/>} | Creates a technicien (`Id` is generated automaticaly) |
-| POST `/Update/[Id]` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"firstName": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"surName": string <br/>} | Updates a technicien according to `Id` |
+| POST `/Create` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"firstName": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"surName": string<br/>} | Creates a technicien (`Id` is generated automaticaly) |
+| POST `/Update/[Id]` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"firstName": string<br/>} | Updates a technicien according to `Id` |
 | GET `/Delete/[Id]` | / | Deletes a technicien according to `Id`|
 
 
