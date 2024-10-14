@@ -27,7 +27,10 @@ app.use(express.json());
 app.use("/planes", planes_routes);
 app.use("/maintenances", maintenances_routes);
 app.use("/technicians", technicians_routes);
-app.use("/status", () => { console.log("Démarré") });
+app.use("/status", (req: any, res: any) => {
+  console.log("Démarré")
+  res.json("OK")
+});
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
 
