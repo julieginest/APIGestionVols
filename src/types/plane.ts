@@ -9,3 +9,5 @@ export interface PlaneQuery {
     brand?: string | null,
     model?: string | null,
 }
+
+export interface PlaneCreation extends PlaneObject{}

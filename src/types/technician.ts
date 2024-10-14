@@ -8,3 +8,7 @@ export interface TechnicianQuery{
     firstName?: string | null,
     surName?: string | null
 }
+export interface TechnicianCreation{
+    firstName: string,
+    surName: string,
+}

@@ -17,3 +17,12 @@ export interface MaintenanceQuery{
     end?: string | null,
 
 }
+
+
+export interface MaintenanceCreation{
+    title: string,
+    technicianID?: number | null,
+    planeRegistration: string,
+    start?: string | null,
+    end?: string | null,
+}
