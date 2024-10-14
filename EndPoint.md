@@ -12,7 +12,7 @@
   - /Create
   - /Update
   - /Delete
-- /flight
+- /maintenance
   - /GetAll
   - /GetById
   - /Filtered
@@ -33,28 +33,28 @@
 | GET `/Delete/[Registration]` | / | Deletes a plane according to `Registration`|
 
 
-# /pilot
+# /technicien
 
 | Endpoint | Paramètres | Description |
 |---|---|---|
-| GET `/GetAll` | / | Returns all "pilots" |
-| GET `/GetById/[Id]` | / | Returns the plane with the according to his `Id` |
-| GET `/Search` | ?q - string | Returns a list of planes according to the search therms |
-| POST `/Create` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"firstName": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"surName": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"unregisteredFlightTime": int <br/>} | Creates a pilot (`Id` is generated automaticaly) |
-| POST `/Update/[Id]` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"firstName": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"surName": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"unregisteredFlightTime": int <br/>} | Updates a pilot according to `Id` |
-| GET `/Delete/[Id]` | / | Deletes a pilot according to `Id`|
+| GET `/GetAll` | / | Returns all "technicien" |
+| GET `/GetById/[Id]` | / | Returns the technicien according to his `Id` |
+| GET `/Search` | ?q - string | Returns a list of technicien according to the search therms |
+| POST `/Create` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"firstName": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"surName": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"unregisteredFlightTime": int <br/>} | Creates a technicien (`Id` is generated automaticaly) |
+| POST `/Update/[Id]` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"firstName": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"surName": string <br/>} | Updates a technicien according to `Id` |
+| GET `/Delete/[Id]` | / | Deletes a technicien according to `Id`|
 
 
-# /flight
+# /maintenance
 
 | Endpoint | Paramètres | Description |
 |---|---|---|
-| GET `/GetAll` | / | Returns all "flights" |
-| GET `/GetById/[Id]` | / | Returns the flight according to his `Id` |
-| GET `/Filtered` | ?pilotID - int<br/>?planeRegistration - string<br/>?OACIStart - string<br/>?OACIStop - string<br/>?takeoff - datetime<br/>?landing - datetime<br/>?minFlightTime - int<br/>?maxFlightTime - int | Returns a list of planes according to the filters |
-| POST `/Create` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"pilotID": int<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"planeRegistration": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"OACIStart": string <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"OACIStop": string <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"takeoff": datetime <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"landing": datetime <br/>} | Creates a flight (`Id` is generated automaticaly) |
-| POST `/Update/[Id]` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"pilotID": int<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"planeRegistration": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"OACIStart": string <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"OACIStop": string <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"takeoff": datetime <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"landing": datetime <br/>} | Updates a flight according to `Id` |
-| GET `/Delete/[Id]` | / | Deletes a flight according to `Id`|
+| GET `/GetAll` | / | Returns all "maintenance" |
+| GET `/GetById/[Id]` | / | Returns the maintenance according to his `Id` |
+| GET `/Filtered` | ?technicienID - int<br/>?planeRegistration - string<br/>?start - datetime<br/>?end - datetime| Returns a list of maintenace according to the filters |
+| POST `/Create` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"technicienID": int<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"planeRegistration": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"start": string <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"end": string<br/>} | Creates a maintenance (`Id` is generated automaticaly) |
+| POST `/Update/[Id]` | {<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"technicienID": int<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"planeRegistration": string<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"start": string <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"end": string<br/>} | Updates a maintenance according to `Id` |
+| GET `/Delete/[Id]` | / | Deletes a maintenance according to `Id`|
 
 # Answers
 
