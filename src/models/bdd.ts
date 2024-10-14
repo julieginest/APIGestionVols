@@ -19,3 +19,23 @@ export const pool = mariadb.createPool({
     database : BDD_DATABASE || "Istres",
     connectionLimit: 5
 })
+
+export const db = {
+    customQuery: async (query:string, args?:(string|number)[] | null): Promise<any> => {
+        var conn;
+        var response;
+        
+        try{
+            conn  = await pool.getConnection();
+
+            response = await pool.query(query,args);
+        }catch(e){
+            console.error(e)
+        }finally{
+            if(conn) conn.release();
+        }
+        return response;
+    },
+
+    
+}
