@@ -26,11 +26,14 @@ export const planeModel = {
         query += "TRUE"
 
         console.log(query)
-
-        return await db.customQuery(
+        console.log(args)
+        const results =  await db.customQuery(
             query,
             args
         )
+        console.log("results",results)
+
+        return results
     },
     update: async (registration: string, changes: PlaneQuery): Promise<PlaneObject> => {
         var query = "UPDATE `Planes` SET ";
@@ -47,18 +50,19 @@ export const planeModel = {
         };
         
 
-        query = query.slice(0,-2) + "WHERE `registration` = ?"
+        query = query.slice(0,-2) + " WHERE `registration` = ?"
         args.push(registration)
 
         console.log(query)
 
-        return await db.customQuery(
-            query,
+        const updated = await db.customQuery(
+            query + " RETURNING *",
             args
         )
+        return updated[0]
     },
     create: async (params: PlaneCreation): Promise<PlaneObject[]> => {
-        var query = "INSERT INTO `Planes` WHERE (`registration`,`brand`,`model`) VALUES(?, ?, ?)";
+        var query = "INSERT INTO `Planes` (`registration`,`brand`,`model`) VALUES(?, ?, ?)";
         var args : (number | string)[] = [];
         args.push(params.registration)
         args.push(params.brand)
@@ -69,10 +73,11 @@ export const planeModel = {
 
         console.log(query)
 
-        return await db.customQuery(
-            query,
+        const created = await db.customQuery(
+            query + " RETURNING *",
             args
         )
+        return created[0]
     },
     delete: async (registration: string): Promise<PlaneObject> => {
         var query = "DELETE FROM `Planes` WHERE `registration`= ?";
@@ -81,9 +86,10 @@ export const planeModel = {
 
         console.log(query)
 
-        return await db.customQuery(
-            query,
+        const deleted = await db.customQuery(
+            query + " RETURNING *",
             args
         )
+        return deleted[0]
     },
 }

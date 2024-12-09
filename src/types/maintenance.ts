@@ -19,10 +19,20 @@ export interface MaintenanceQuery{
 }
 
 
-export interface MaintenanceCreation{
+export interface MaintenanceCreation {
     title: string,
     technicianID?: number | null,
     planeRegistration: string,
     start?: string | null,
     end?: string | null,
 }
+
+// type jaaj ={
+    
+//         title: string,
+//         technicianID?: number | null,
+//         planeRegistration: string,
+//         start?: string | null,
+//         end?: string | null,
+    
+// }

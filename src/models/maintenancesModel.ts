@@ -50,7 +50,7 @@ export const maintenancesModel = {
 
     },
 
-    update: async (Id: number, changes:MaintenanceQuery): Promise<MaintenanceObject> =>{
+    update: async (Id: number, changes:MaintenanceQuery): Promise<any> =>{
         var query = "UPDATE `Maintenances` SET ";
         var args : (number | string)[] = [];
 
@@ -85,14 +85,15 @@ export const maintenancesModel = {
         query = query.slice(0,-2) +  " WHERE Id = ?"
         args.push(Id)
 
-        return await db.customQuery(
-            query,
+        const updated = await db.customQuery(
+            query + " RETURNING *",
             args
         )
+        return updated[0]
     },
 
 
-    create: async (params:MaintenanceCreation): Promise<MaintenanceObject> =>{
+    create: async (params:MaintenanceCreation): Promise<any> =>{
         var query = "INSERT INTO `Maintenances` (`title`, `planeRegistration`, ";
         var queryValues = " VALUES (?, ?, "
         var args : (number | string)[] = [];
@@ -126,21 +127,23 @@ export const maintenancesModel = {
         queryValues =  queryValues.slice(0,-2) + ")"
         
 
-        return await db.customQuery(
-            query + queryValues,
+        const created = await db.customQuery(
+            query + " RETURNING *",
             args
         )
+        return created[0]
     },
-    delete: async (Id: number): Promise<MaintenanceObject> =>{
+    delete: async (Id: number): Promise<any> =>{
         var query = "DELETE FROM `Maintenances` WHERE `Id`= ?";
         var args : number[] = [Id];
 
 
         console.log(query)
 
-        return await db.customQuery(
-            query,
+        const deleted = await db.customQuery(
+            query + " RETURNING *",
             args
         )
+        return deleted[0]
     },
 };

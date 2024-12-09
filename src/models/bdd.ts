@@ -1,5 +1,6 @@
 /**** Imports ****/
-import mariadb from "mariadb";
+import mariadb, { SqlError } from "mariadb";
+import { httpError, httpErrorFromSql } from "../types/errors";
 
 require("dotenv").config();
 
@@ -20,22 +21,152 @@ export const pool = mariadb.createPool({
     connectionLimit: 5
 })
 
+
+
+
+
+
 export const db = {
     customQuery: async (query:string, args?:(string|number)[] | null): Promise<any> => {
-        var conn;
-        var response;
-        
-        try{
-            conn  = await pool.getConnection();
+        const conn = await sqlSteps.newConnection();
+        const emptyError : httpErrorFromSql = {
+            name:"EMPTY",
+            message:"The query did not reach any record",
+            HTTPcode: 404,
+            sqlErrno: 0,
+        }
+        let response: any[] = [];
 
-            response = await pool.query(query,args);
-        }catch(e){
-            console.error(e)
-        }finally{
-            if(conn) conn.release();
+        if(conn){
+            response  = await sqlSteps.query(query, args)
+            conn.release();
+        }
+        if(response.length == 0){
+            throw(emptyError)
         }
         return response;
     },
 
+    
+}
+
+const sqlSteps = {
+    newConnection: async (): Promise<any> => {
+        var conn;
+        
+        try{
+            console.log("Connection...")
+            conn  = await pool.getConnection();
+            console.log("Connected")
+
+            return conn;
+        }catch(err){
+            console.error("Connection error:")
+            const parsedErr: SqlError = err as SqlError
+            sqlErrorsHandler(parsedErr)
+        }
+    },
+
+    query: async (query:string, args?:(string|number)[] | null): Promise<any> => {
+        var response;
+        
+        
+            try{
+                response = await pool.query(query,args);
+                return response
+            }catch(err){
+                console.error("SQL error:")
+                const parsedErr: SqlError = err as SqlError
+                sqlErrorsHandler(parsedErr)
+            }
+        
+    },
+}
+
+
+
+
+const sqlErrorsHandler = (
+    // step: "query" | "newConnection",
+    thrownError: SqlError,
+) => {
+
+    var ErrVars: {message: string, HTTPcode: number};
+        switch (thrownError.errno) {
+
+            //4xx errors
+            case 1452:
+                ErrVars = {
+                    message:"Your `{object}` references an unkown {FK}",
+                    HTTPcode: 422,
+                }
+                break;
+                
+            case 1062:
+                ErrVars = {
+                    message:"Your `{object}` has dublicated entry ({UNIQUE}) that must be unique",
+                    HTTPcode: 422,
+                }
+                break;
+                
+            case 1364:
+                ErrVars = {
+                    message:"Your `{object}` is missing one or several non null properties ({NOT_NULL})",
+                    HTTPcode: 422,
+                }
+                break;
+
+            case 1451:
+                ErrVars = {
+                    message:"Your `{object}` is linked to a record on an other table.",
+                    HTTPcode: 422,
+                }
+                break;
+
+                
+                
+            //5xx errors
+            case 1064:
+                ErrVars = {
+                    message:"Internal SQL syntax error",
+                    HTTPcode: 500,
+                }
+                break;
+            case 1146:
+                ErrVars = {
+                    message:"Internal table reference error",
+                    HTTPcode: 500,
+                }
+                break;
+            case 1049:
+                ErrVars = {
+                    message:"Internal datbase error",
+                    HTTPcode: 500,
+                }
+                break;
+
+            default:
+                ErrVars = {
+                    message:"UNKNOWN ERROR",
+                    HTTPcode: 500,
+                }
+        }
+    
+
+
+            console.log(thrownError);
+
+            var err: httpErrorFromSql = {
+                name:thrownError.code || "UNKNOWN",
+                message:ErrVars.message,
+                HTTPcode: ErrVars.HTTPcode,
+                sqlErrno: thrownError.errno
+            }
+            throw(err);
+            
+            
+            
+        
+    
     
 }

@@ -31,6 +31,9 @@ app.use("/status", (req: any, res: any) => {
   console.log("Démarré")
   res.json("OK")
 });
+app.use("/", (req: any, res: any) => {
+  res.json("App up")
+});
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
 

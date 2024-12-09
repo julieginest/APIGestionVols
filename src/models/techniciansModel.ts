@@ -32,7 +32,7 @@ export const technicianModel = {
             args
         )
     },
-    update: async (Id: string, changes: TechnicianQuery): Promise<TechnicianObject> => {
+    update: async (Id: number, changes: TechnicianQuery): Promise<TechnicianObject> => {
         var query = "UPDATE `Technicians` SET ";
         var args : (number | string)[] = [];
 
@@ -52,13 +52,14 @@ export const technicianModel = {
 
         console.log(query)
 
-        return await db.customQuery(
-            query,
+        const updated = await db.customQuery(
+            query + " RETURNING *",
             args
         )
+        return updated[0]
     },
     create: async (params: TechnicianCreation): Promise<TechnicianObject[]> => {
-        var query = "INSERT INTO `Technicians` WHERE (`firstName`,`surName`) VALUES(?, ?)";
+        var query = "INSERT INTO `Technicians` (`firstName`,`surName`) VALUES(?, ?)";
         var args : (number | string)[] = [];
         args.push(params.firstName)
         args.push(params.surName)
@@ -68,10 +69,11 @@ export const technicianModel = {
 
         console.log(query)
 
-        return await db.customQuery(
-            query,
+        const created = await db.customQuery(
+            query + " RETURNING *",
             args
         )
+        return created[0]
     },
     delete: async (Id: number): Promise<TechnicianObject> => {
         var query = "DELETE FROM `Technicians` WHERE `Id`= ?";
@@ -80,9 +82,10 @@ export const technicianModel = {
 
         console.log(query)
 
-        return await db.customQuery(
-            query,
+        const deleted = await db.customQuery(
+            query + " RETURNING *",
             args
         )
+        return deleted[0]
     },
 }
