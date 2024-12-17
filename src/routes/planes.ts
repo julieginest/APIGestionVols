@@ -7,6 +7,6 @@ router.get("/GetByRegistration/:registration", GetById);
 router.get("/Filtered", Filtered);
 
 router.post("/Create", Create)
-router.post("/Update/:registration", Update)
-router.get("/Delete/:registration", Delete)
+router.put("/Update/:registration", Update)
+router.delete("/Delete/:registration", Delete)
 export default router;

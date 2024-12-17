@@ -9,7 +9,7 @@ router.get("/GetById/:Id", GetById);
 router.get("/Filtered", Filtered);
 
 router.post("/Create", Create)
-router.post("/Update/:Id", Update)
-router.get("/Delete/:Id", Delete)
+router.put("/Update/:Id", Update)
+router.delete("/Delete/:Id", Delete)
 
 export default router;
